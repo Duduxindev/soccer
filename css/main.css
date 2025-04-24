@@ -54,7 +54,7 @@ body {
 #loading-bar {
     height: 100%;
     width: 0;
-    background: linear-gradient(90deg, #293e9c, #2773df);
+    background: linear-gradient(90deg, #798de5, #27a8df);
     border-radius: 10px;
     transition: width 0.3s;
 }
