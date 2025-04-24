@@ -1,172 +1,246 @@
 /**
- * Penalty Shooters 2 - Teams & Leagues Management
+ * Teams Database and Management for Penalty Shooters 2
  */
 
-// Generate 12 fictional leagues
-function generateLeagues() {
-    return [
-        { name: 'Premier League', country: 'England', color: '#3D195B' },
-        { name: 'La Liga', country: 'Spain', color: '#FF7E00' },
-        { name: 'Bundesliga', country: 'Germany', color: '#D20515' },
-        { name: 'Serie A', country: 'Italy', color: '#008FD7' },
-        { name: 'Ligue 1', country: 'France', color: '#091C3E' },
-        { name: 'Eredivisie', country: 'Netherlands', color: '#FF6600' },
-        { name: 'Primeira Liga', country: 'Portugal', color: '#00923F' },
-        { name: 'Super League', country: 'Turkey', color: '#E30613' },
-        { name: 'Pro League', country: 'Belgium', color: '#000000' },
-        { name: 'Super League', country: 'Switzerland', color: '#CF0000' },
-        { name: 'Premier League', country: 'Scotland', color: '#0066B3' },
-        { name: 'Eliteserien', country: 'Norway', color: '#003399' }
+// Team database with sample teams
+const TeamsDatabase = (function() {
+    // Private team data
+    const teams = [
+        // Europe
+        {
+            id: 'team-001',
+            name: 'Red Dragons',
+            country: 'England',
+            colors: {
+                primary: '#FF0000',
+                secondary: '#FFFFFF'
+            },
+            logo: 'assets/images/teams/red-dragons.png',
+            strength: 0.9
+        },
+        {
+            id: 'team-002',
+            name: 'Blue Lions',
+            country: 'France',
+            colors: {
+                primary: '#0000FF',
+                secondary: '#FFFFFF'
+            },
+            logo: 'assets/images/teams/blue-lions.png',
+            strength: 0.88
+        },
+        {
+            id: 'team-003',
+            name: 'Green Eagles',
+            country: 'Germany',
+            colors: {
+                primary: '#008000',
+                secondary: '#000000'
+            },
+            logo: 'assets/images/teams/green-eagles.png',
+            strength: 0.92
+        },
+        {
+            id: 'team-004',
+            name: 'Yellow Hornets',
+            country: 'Spain',
+            colors: {
+                primary: '#FFFF00',
+                secondary: '#FF0000'
+            },
+            logo: 'assets/images/teams/yellow-hornets.png',
+            strength: 0.91
+        },
+        {
+            id: 'team-005',
+            name: 'Blue Stars',
+            country: 'Italy',
+            colors: {
+                primary: '#0000FF',
+                secondary: '#FFFFFF'
+            },
+            logo: 'assets/images/teams/blue-stars.png',
+            strength: 0.87
+        },
+        
+        // South America
+        {
+            id: 'team-006',
+            name: 'Green Canaries',
+            country: 'Brazil',
+            colors: {
+                primary: '#008000',
+                secondary: '#FFFF00'
+            },
+            logo: 'assets/images/teams/green-canaries.png',
+            strength: 0.93
+        },
+        {
+            id: 'team-007',
+            name: 'White and Blue',
+            country: 'Argentina',
+            colors: {
+                primary: '#FFFFFF',
+                secondary: '#0000FF'
+            },
+            logo: 'assets/images/teams/white-and-blue.png',
+            strength: 0.91
+        },
+        
+        // North America
+        {
+            id: 'team-008',
+            name: 'Red Wolves',
+            country: 'USA',
+            colors: {
+                primary: '#FF0000',
+                secondary: '#0000FF'
+            },
+            logo: 'assets/images/teams/red-wolves.png',
+            strength: 0.85
+        },
+        
+        // Asia
+        {
+            id: 'team-009',
+            name: 'Red Samurai',
+            country: 'Japan',
+            colors: {
+                primary: '#FF0000',
+                secondary: '#FFFFFF'
+            },
+            logo: 'assets/images/teams/red-samurai.png',
+            strength: 0.86
+        },
+        {
+            id: 'team-010',
+            name: 'Red Dragons FC',
+            country: 'China',
+            colors: {
+                primary: '#FF0000',
+                secondary: '#FFFF00'
+            },
+            logo: 'assets/images/teams/red-dragons-fc.png',
+            strength: 0.84
+        },
+        
+        // Africa
+        {
+            id: 'team-011',
+            name: 'Green Lions',
+            country: 'Nigeria',
+            colors: {
+                primary: '#008000',
+                secondary: '#FFFFFF'
+            },
+            logo: 'assets/images/teams/green-lions.png',
+            strength: 0.85
+        },
+        {
+            id: 'team-012',
+            name: 'Orange Eagles',
+            country: 'Egypt',
+            colors: {
+                primary: '#FFA500',
+                secondary: '#000000'
+            },
+            logo: 'assets/images/teams/orange-eagles.png',
+            strength: 0.84
+        }
     ];
-}
-
-// Generate 30 teams per league (total 360 teams)
-function generateTeamsForLeague(league) {
-    const teams = [];
-    const citiesCount = 30;
     
-    // Generate city names based on the league's country
-    const cities = generateCitiesForCountry(league.country, citiesCount);
-    
-    // Create a team for each city
-    cities.forEach(city => {
-        const teamName = generateTeamName(city, league.country);
-        const teamColors = generateTeamColors();
+    // Generate additional teams to have enough for the tournament
+    for (let i = 0; i < 20; i++) {
+        const colors = ['#FF0000', '#0000FF', '#008000', '#FFFF00', '#FFA500', '#800080'];
+        const secondaryColors = ['#FFFFFF', '#000000', '#888888'];
+        const animals = ['Bears', 'Wolves', 'Foxes', 'Sharks', 'Tigers', 'Panthers'];
+        const countries = ['Netherlands', 'Portugal', 'Belgium', 'Switzerland', 'Sweden', 'Denmark', 'Uruguay', 'Colombia', 'Mexico', 'Australia'];
         
         teams.push({
-            name: teamName,
-            city: city,
-            country: league.country,
-            league: league.name,
-            primaryColor: teamColors.primary,
-            secondaryColor: teamColors.secondary,
-            logo: generateLogoPath(teamName) // This would link to actual logo files in production
+            id: `team-${13 + i}`,
+            name: `${animals[i % animals.length]} FC`,
+            country: countries[i % countries.length],
+            colors: {
+                primary: colors[i % colors.length],
+                secondary: secondaryColors[i % secondaryColors.length]
+            },
+            logo: `assets/images/teams/generic-team-${(i % 5) + 1}.png`,
+            strength: 0.7 + Math.random() * 0.2
         });
-    });
-    
-    return teams;
-}
-
-function generateCitiesForCountry(country, count) {
-    // This would be replaced with actual city lists for each country
-    // For now, generate fictional city names
-    const citySuffixes = ['town', 'city', 'burg', 'ville', 'haven', 'port', 'field', 'wood', 'ford', 'bridge'];
-    const cityPrefixes = ['north', 'south', 'east', 'west', 'new', 'old', 'upper', 'lower', 'great', 'little'];
-    const rootNames = ['brook', 'river', 'lake', 'hill', 'mount', 'vale', 'dale', 'green', 'red', 'blue', 
-                       'black', 'white', 'gold', 'silver', 'iron', 'stone', 'rock', 'oak', 'elm', 'pine'];
-    
-    const cities = [];
-    
-    // Generate unique city names
-    while (cities.length < count) {
-        let cityName;
-        
-        // 33% chance of prefix + root + suffix
-        // 33% chance of root + suffix
-        // 33% chance of prefix + root
-        const nameType = Math.floor(Math.random() * 3);
-        
-        switch (nameType) {
-            case 0:
-                cityName = capitalize(getRandomElement(cityPrefixes)) + ' ' + 
-                          capitalize(getRandomElement(rootNames)) + 
-                          getRandomElement(citySuffixes);
-                break;
-            case 1:
-                cityName = capitalize(getRandomElement(rootNames)) + 
-                          getRandomElement(citySuffixes);
-                break;
-            case 2:
-                cityName = capitalize(getRandomElement(cityPrefixes)) + ' ' + 
-                          capitalize(getRandomElement(rootNames));
-                break;
-        }
-        
-        // Ensure uniqueness
-        if (!cities.includes(cityName)) {
-            cities.push(cityName);
-        }
     }
     
-    return cities;
-}
-
-function generateTeamName(city, country) {
-    // Different naming patterns based on country
-    switch (country) {
-        case 'England':
-            return `${city} FC`;
-        case 'Spain':
-            return `${city} CF`;
-        case 'Germany':
-            return `${city} SV`;
-        case 'Italy':
-            return `${city} AC`;
-        case 'France':
-            return `${city} AS`;
-        default:
-            return `${city} FC`;
-    }
-}
-
-function generateTeamColors() {
-    const colors = [
-        '#FF0000', // Red
-        '#0000FF', // Blue
-        '#008000', // Green
-        '#FFFF00', // Yellow
-        '#FFA500', // Orange
-        '#800080', // Purple
-        '#000000', // Black
-        '#FFFFFF', // White
-        '#00FFFF', // Cyan
-        '#FF00FF', // Magenta
-        '#A52A2A', // Brown
-        '#808080', // Gray
-        '#FFD700', // Gold
-        '#C0C0C0', // Silver
-        '#800000', // Maroon
-        '#008080'  // Teal
-    ];
-    
-    // Select two different colors
-    const primary = getRandomElement(colors);
-    let secondary;
-    
-    do {
-        secondary = getRandomElement(colors);
-    } while (secondary === primary);
-    
+    // Public methods
     return {
-        primary: primary,
-        secondary: secondary
+        getTeams: function() {
+            return teams;
+        },
+        
+        getTeamById: function(id) {
+            return teams.find(team => team.id === id) || null;
+        },
+        
+        getTeamsByCountry: function(country) {
+            return country === 'all' ? teams : teams.filter(team => team.country === country);
+        },
+        
+        getTeamsByColor: function(colorName) {
+            if (colorName === 'all') return teams;
+            
+            // Simple color matching - could be improved with color distance algorithms
+            return teams.filter(team => {
+                const primaryColor = team.colors.primary.toLowerCase();
+                return primaryColor.includes(colorName.toLowerCase());
+            });
+        },
+        
+        getAvailableCountries: function() {
+            const countries = new Set();
+            teams.forEach(team => countries.add(team.country));
+            return [...countries].sort();
+        },
+        
+        getAvailableColors: function() {
+            return ['Red', 'Blue', 'Green', 'Yellow', 'Orange', 'Purple', 'White', 'Black'];
+        }
     };
-}
+})();
 
-function generateLogoPath(teamName) {
-    // In a real app, this would link to actual logo files
-    // For now, just return a placeholder
-    return 'assets/images/team-logo-placeholder.png';
-}
-
-// Generate all teams for all leagues
-function generateTeams() {
-    const leagues = generateLeagues();
-    let allTeams = [];
+// Team customization manager
+const TeamCustomizer = (function() {
+    // Private variables
+    let customizedTeams = {};
     
-    leagues.forEach(league => {
-        const leagueTeams = generateTeamsForLeague(league);
-        allTeams = [...allTeams, ...leagueTeams];
-    });
-    
-    return allTeams;
-}
-
-// Utility functions
-function getRandomElement(array) {
-    return array[Math.floor(Math.random() * array.length)];
-}
-
-function capitalize(string) {
-    return string.charAt(0).toUpperCase() + string.slice(1);
-}
+    // Public methods
+    return {
+        customizeTeam: function(teamId, customizations) {
+            const team = TeamsDatabase.getTeamById(teamId);
+            if (!team) return false;
+            
+            // Create a copy of the team
+            const customTeam = JSON.parse(JSON.stringify(team));
+            
+            // Apply customizations
+            if (customizations.name) customTeam.name = customizations.name;
+            if (customizations.colors && customizations.colors.primary) customTeam.colors.primary = customizations.colors.primary;
+            if (customizations.colors && customizations.colors.secondary) customTeam.colors.secondary = customizations.colors.secondary;
+            if (customizations.logo) customTeam.logo = customizations.logo;
+            
+            // Save the customized team
+            customizedTeams[teamId] = customTeam;
+            
+            return customTeam;
+        },
+        
+        getCustomizedTeam: function(teamId) {
+            return customizedTeams[teamId] || TeamsDatabase.getTeamById(teamId);
+        },
+        
+        resetTeam: function(teamId) {
+            if (customizedTeams[teamId]) {
+                delete customizedTeams[teamId];
+                return true;
+            }
+            return false;
+        }
+    };
+})();
