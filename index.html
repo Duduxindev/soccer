@@ -4,402 +4,318 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Penalty Shooters 2</title>
-    <link rel="stylesheet" href="css/reset.css">
-    <link rel="stylesheet" href="css/game-styles.css">
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;800&family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Icons -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet">
+    
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="css/professional.css">
 </head>
 <body>
-    <div id="main-menu" class="screen">
-        <div class="menu-bg"></div>
-        <div class="menu-container">
-            <h1 class="game-title">Penalty Shooters <span class="title-highlight">2</span></h1>
+    <!-- Loading Screen -->
+    <div id="loading-screen">
+        <div class="loading-content">
+            <h1>PENALTY SHOOTERS 2</h1>
+            <div class="loading-bar-container">
+                <div id="loading-bar"></div>
+            </div>
+            <p id="loading-text">Loading game assets...</p>
+        </div>
+        <div class="soccer-ball"></div>
+    </div>
+
+    <!-- Main Menu -->
+    <div id="main-menu" class="screen hidden">
+        <div class="menu-content">
+            <video class="menu-bg-video" autoplay muted loop playsinline>
+                <source src="assets/videos/stadium-bg.mp4" type="video/mp4">
+            </video>
+            <div class="stadium-overlay"></div>
+            
+            <h1 class="game-logo">PENALTY <span class="logo-highlight">SHOOTERS</span> 2</h1>
+            
             <div class="menu-buttons">
-                <button class="btn btn-primary" id="quick-match-btn">
-                    <i class="fas fa-futbol"></i>
-                    <span>Quick Match</span>
-                </button>
-                <button class="btn btn-primary" id="tournament-btn">
+                <button id="start-tournament" class="menu-button menu-button-primary">
                     <i class="fas fa-trophy"></i>
-                    <span>Tournament</span>
+                    <span class="btn-text">Tournament Mode</span>
                 </button>
-                <button class="btn btn-primary" id="customize-btn">
-                    <i class="fas fa-tshirt"></i>
-                    <span>Customize</span>
+                <button id="quick-match" class="menu-button menu-button-secondary">
+                    <i class="fas fa-futbol"></i>
+                    <span class="btn-text">Quick Match</span>
                 </button>
-                <button class="btn btn-secondary" id="options-btn">
+                <button id="customize" class="menu-button">
+                    <i class="fas fa-palette"></i>
+                    <span class="btn-text">Customize</span>
+                </button>
+                <button id="options" class="menu-button">
                     <i class="fas fa-cog"></i>
-                    <span>Options</span>
+                    <span class="btn-text">Options</span>
                 </button>
-                <button class="btn btn-secondary" id="tutorial-btn">
+                <button id="tutorial" class="menu-button">
                     <i class="fas fa-question-circle"></i>
-                    <span>Tutorial</span>
+                    <span class="btn-text">Tutorial</span>
                 </button>
             </div>
-            <div class="game-version">v2.0</div>
         </div>
     </div>
 
     <!-- Tournament Setup Screen -->
     <div id="tournament-setup" class="screen hidden">
-        <div class="screen-header">
+        <div class="setup-header">
             <h2>Tournament Setup</h2>
-            <button class="btn-close" id="close-tournament-setup">
-                <i class="fas fa-times"></i>
-            </button>
-        </div>
-        <div class="tournament-container">
-            <div class="selection-section">
-                <h3>Select League</h3>
-                <div class="leagues-grid" id="leagues-grid"></div>
-            </div>
-            
-            <div class="selection-section">
-                <h3>Select Your Team</h3>
-                <div class="filter-bar">
-                    <div class="filter-group">
-                        <label>Country</label>
-                        <select id="country-filter">
-                            <option value="all">All Countries</option>
-                        </select>
-                    </div>
-                    <div class="filter-group">
-                        <label>Primary Color</label>
-                        <select id="color-filter">
-                            <option value="all">All Colors</option>
-                        </select>
-                    </div>
-                    <div class="search-bar">
-                        <input type="text" id="team-search" placeholder="Search teams...">
-                        <i class="fas fa-search"></i>
-                    </div>
-                </div>
-                <div class="teams-grid" id="teams-grid"></div>
-            </div>
-
-            <div class="bottom-actions">
-                <button class="btn btn-primary" id="start-tournament-btn" disabled>
-                    <i class="fas fa-play"></i>
-                    <span>Start Tournament</span>
-                </button>
-                <button class="btn btn-secondary" id="back-to-menu-btn">
-                    <i class="fas fa-arrow-left"></i>
-                    <span>Back to Menu</span>
-                </button>
+            <div id="setup-progress">
+                <span class="badge badge-primary">Step 1 of 2</span>
             </div>
         </div>
-    </div>
-
-    <!-- Customization Screen -->
-    <div id="customize-screen" class="screen hidden">
-        <div class="screen-header">
-            <h2>Customize Your Team</h2>
-            <button class="btn-close" id="close-customize">
-                <i class="fas fa-times"></i>
-            </button>
-        </div>
-        <div class="customize-container">
-            <div class="team-preview">
-                <div class="jersey-display">
-                    <img id="jersey-preview" src="assets/images/jerseys/default.png" alt="Team Jersey">
-                </div>
-                <div class="team-details">
-                    <div class="detail-item">
-                        <label>Team Name</label>
-                        <input type="text" id="team-name-input" maxlength="20" placeholder="Your Team Name">
+        
+        <div class="setup-container">
+            <div class="setup-section league-selection">
+                <div class="section-header">
+                    <h3>Select League</h3>
+                    <div id="league-selection-indicator" class="selection-indicator">
+                        <i class="far fa-circle"></i>
+                        <span>Not Selected</span>
                     </div>
-                    <div class="team-colors">
-                        <div class="color-picker">
-                            <label>Primary Color</label>
-                            <input type="color" id="primary-color" value="#ff0000">
-                        </div>
-                        <div class="color-picker">
-                            <label>Secondary Color</label>
-                            <input type="color" id="secondary-color" value="#ffffff">
-                        </div>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="customize-options">
-                <div class="option-section">
-                    <h3>Logo Selection</h3>
-                    <div class="logos-grid" id="logos-grid"></div>
                 </div>
                 
-                <div class="option-section">
-                    <h3>Jersey Style</h3>
-                    <div class="jersey-styles" id="jersey-styles">
-                        <div class="jersey-style active" data-style="solid">Solid</div>
-                        <div class="jersey-style" data-style="striped">Striped</div>
-                        <div class="jersey-style" data-style="halved">Halved</div>
-                        <div class="jersey-style" data-style="checkered">Checkered</div>
-                    </div>
-                </div>
+                <div class="leagues-container" id="leagues-grid"></div>
             </div>
             
-            <div class="bottom-actions">
-                <button class="btn btn-primary" id="save-team-btn">
-                    <i class="fas fa-save"></i>
-                    <span>Save Team</span>
+            <div class="setup-section team-selection">
+                <div class="section-header">
+                    <h3>Select Your Team</h3>
+                    <div id="team-selection-indicator" class="selection-indicator">
+                        <i class="far fa-circle"></i>
+                        <span>Not Selected</span>
+                    </div>
+                </div>
+                
+                <div class="filter-container">
+                    <div class="filter-group">
+                        <label class="filter-label">Country</label>
+                        <div class="select-wrapper">
+                            <select id="country-filter" class="filter-select">
+                                <option value="all">All Countries</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <div class="filter-group">
+                        <label class="filter-label">Team Colors</label>
+                        <div class="select-wrapper">
+                            <select id="color-filter" class="filter-select">
+                                <option value="all">All Colors</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <div class="search-input">
+                        <i class="fas fa-search"></i>
+                        <input type="text" id="team-search" placeholder="Search teams...">
+                    </div>
+                </div>
+                
+                <div class="teams-container" id="teams-grid"></div>
+            </div>
+            
+            <div class="setup-buttons">
+                <button id="start-game" class="btn btn-primary" disabled>
+                    <i class="fas fa-play"></i>
+                    <span class="btn-text">Start Tournament</span>
                 </button>
-                <button class="btn btn-secondary" id="randomize-team-btn">
-                    <i class="fas fa-random"></i>
-                    <span>Randomize</span>
+                <button id="back-to-menu" class="btn btn-secondary">
+                    <i class="fas fa-arrow-left"></i>
+                    <span class="btn-text">Back</span>
                 </button>
             </div>
         </div>
     </div>
+    
+    <!-- Customize Screen -->
+    <div id="customize-screen" class="screen hidden">
+        <h2>Player Customization</h2>
+        <div id="customize-container"></div>
+    </div>
+    
+    <!-- Options Screen -->
+    <div id="options-screen" class="screen hidden">
+        <h2>Game Options</h2>
+        <div id="options-container"></div>
+    </div>
 
-    <!-- Game Screen -->
-    <div id="game-container" class="screen hidden">
-        <div class="game-hud">
-            <div class="teams-score">
-                <div class="team team-home">
-                    <img id="team1-logo" class="team-logo" src="assets/images/logos/default.png" alt="Home Team">
-                    <div class="team-info">
-                        <span id="team1-name" class="team-name">Home Team</span>
-                        <span id="team1-score" class="team-score">0</span>
-                    </div>
+    <!-- Game Canvas Container -->
+    <div id="game-container" class="hidden">
+        <!-- Game HUD -->
+        <div id="game-hud">
+            <div class="hud-top">
+                <div class="team-info team-left">
+                    <img id="team1-logo" class="team-logo" src="assets/images/placeholder-logo.png" alt="Team 1">
+                    <span id="team1-name" class="team-name">Team 1</span>
+                    <span id="team1-score" class="team-score">0</span>
                 </div>
                 <div class="match-info">
-                    <div id="tournament-phase">Friendly Match</div>
+                    <div id="tournament-phase">Group Stage</div>
                     <div id="penalties-remaining">5 penalties each</div>
                     <div id="timer">00:10</div>
                 </div>
-                <div class="team team-away">
-                    <div class="team-info">
-                        <span id="team2-score" class="team-score">0</span>
-                        <span id="team2-name" class="team-name">Away Team</span>
-                    </div>
-                    <img id="team2-logo" class="team-logo" src="assets/images/logos/default.png" alt="Away Team">
+                <div class="team-info team-right">
+                    <span id="team2-score" class="team-score">0</span>
+                    <span id="team2-name" class="team-name">Team 2</span>
+                    <img id="team2-logo" class="team-logo" src="assets/images/placeholder-logo.png" alt="Team 2">
                 </div>
             </div>
         </div>
 
-        <div id="instruction-overlay" class="overlay">
+        <!-- Game instructions overlay -->
+        <div id="instruction-overlay">
             <div class="instruction-content">
                 <h3 id="instruction-title">Your turn to shoot!</h3>
-                <p id="instruction-text">Click and hold to charge your shot. Release to shoot. The red dot controls direction.</p>
+                <p id="instruction-text">Use A/D to aim left/right, W/S to control height. Hold SPACE to charge, release to shoot.</p>
             </div>
         </div>
 
+        <!-- Game Canvas -->
         <canvas id="game-canvas"></canvas>
 
-        <button id="pause-button" class="game-button">
-            <i class="fas fa-pause"></i>
+        <!-- Pause Button with fixed implementation -->
+        <button id="pause-button" aria-label="Pause Game">
+            <span>II</span>
         </button>
+    </div>
 
-        <div id="pause-menu" class="overlay-menu hidden">
-            <div class="overlay-content">
-                <h2>Game Paused</h2>
-                <button id="resume-btn" class="btn btn-primary">
-                    <i class="fas fa-play"></i>
-                    <span>Resume</span>
-                </button>
-                <button id="restart-btn" class="btn btn-secondary">
-                    <i class="fas fa-redo"></i>
-                    <span>Restart</span>
-                </button>
-                <button id="exit-btn" class="btn btn-danger">
-                    <i class="fas fa-sign-out-alt"></i>
-                    <span>Exit to Menu</span>
-                </button>
-            </div>
+    <!-- Pause Menu -->
+    <div id="pause-menu" class="overlay hidden">
+        <div class="pause-content">
+            <h2>Game Paused</h2>
+            <button id="resume" class="menu-button">
+                <i class="fas fa-play"></i> Resume Game
+            </button>
+            <button id="restart" class="menu-button">
+                <i class="fas fa-redo"></i> Restart Match
+            </button>
+            <button id="quit-to-menu" class="menu-button">
+                <i class="fas fa-home"></i> Quit to Menu
+            </button>
         </div>
     </div>
 
     <!-- Match Result Screen -->
     <div id="match-result" class="screen hidden">
-        <div class="result-header">
-            <h2 id="result-title">Match Result</h2>
+        <h2 id="result-title">Match Result</h2>
+        <div class="result-score">
+            <div class="team-result">
+                <img id="result-team1-logo" class="team-logo-large" src="assets/images/placeholder-logo.png" alt="Team 1">
+                <div id="result-team1-name" class="team-name-large">Team 1</div>
+                <div id="result-team1-score" class="team-score-large">3</div>
+            </div>
+            <div class="result-separator">:</div>
+            <div class="team-result">
+                <div id="result-team2-score" class="team-score-large">2</div>
+                <div id="result-team2-name" class="team-name-large">Team 2</div>
+                <img id="result-team2-logo" class="team-logo-large" src="assets/images/placeholder-logo.png" alt="Team 2">
+            </div>
         </div>
-        <div class="result-content">
-            <div class="match-result">
-                <div class="result-team">
-                    <img id="result-team1-logo" class="team-logo-large" src="assets/images/logos/default.png" alt="Team 1">
-                    <div id="result-team1-name" class="team-name-large">Team 1</div>
-                    <div id="result-team1-score" class="team-score-large">0</div>
-                </div>
-                <div class="result-vs">vs</div>
-                <div class="result-team">
-                    <div id="result-team2-score" class="team-score-large">0</div>
-                    <div id="result-team2-name" class="team-name-large">Team 2</div>
-                    <img id="result-team2-logo" class="team-logo-large" src="assets/images/logos/default.png" alt="Team 2">
-                </div>
-            </div>
-
-            <div class="result-stats">
-                <h3>Match Statistics</h3>
-                <div id="match-stats" class="stats-grid"></div>
-            </div>
-
-            <div id="medals-container" class="medals-container"></div>
-
-            <div class="bottom-actions">
-                <button id="continue-btn" class="btn btn-primary">Continue</button>
-                <button id="menu-btn" class="btn btn-secondary">Main Menu</button>
-            </div>
+        <div class="statistics">
+            <h3>Match Statistics</h3>
+            <div class="stats-container" id="match-stats"></div>
+        </div>
+        <div class="medals-earned" id="medals-container"></div>
+        <div class="result-buttons">
+            <button id="continue-tournament" class="btn btn-primary">Continue</button>
+            <button id="exit-tournament" class="btn btn-secondary">Exit to Menu</button>
         </div>
     </div>
 
     <!-- Tournament Progress Screen -->
     <div id="tournament-progress" class="screen hidden">
-        <div class="screen-header">
-            <h2 id="tournament-stage-title">Group Stage</h2>
-            <button class="btn-close" id="close-tournament">
-                <i class="fas fa-times"></i>
+        <h2 id="tournament-stage-title">Group Stage</h2>
+        <div class="tournament-bracket" id="tournament-bracket"></div>
+        <div class="progress-buttons">
+            <button id="next-match" class="btn btn-primary">
+                <i class="fas fa-play"></i> Next Match
             </button>
-        </div>
-        
-        <div class="tournament-view">
-            <div class="view-controls">
-                <button id="view-groups-btn" class="btn btn-tab active">Groups</button>
-                <button id="view-bracket-btn" class="btn btn-tab">Bracket</button>
-            </div>
-            
-            <div id="tournament-content" class="tournament-content"></div>
-            
-            <div class="bottom-actions">
-                <button id="next-match-btn" class="btn btn-primary">
-                    <i class="fas fa-play"></i>
-                    <span>Next Match</span>
-                </button>
-                <button id="simulate-btn" class="btn btn-secondary">
-                    <i class="fas fa-fast-forward"></i>
-                    <span>Simulate Matches</span>
-                </button>
-            </div>
+            <button id="view-groups" class="btn btn-secondary">
+                <i class="fas fa-table"></i> View Groups
+            </button>
+            <button id="exit-to-menu" class="btn btn-secondary">
+                <i class="fas fa-home"></i> Exit to Menu
+            </button>
         </div>
     </div>
 
     <!-- Trophy Screen -->
     <div id="trophy-screen" class="screen hidden">
-        <div class="trophy-container">
-            <div class="confetti-container" id="confetti-container"></div>
+        <div class="trophy-content">
             <h2 id="trophy-title">CHAMPIONS!</h2>
-            <div class="trophy-image">
-                <img src="assets/images/trophy.png" alt="Trophy">
-            </div>
-            <div id="champion-team-name" class="champion-name">Your Team</div>
-            <div id="champion-league-name" class="league-name">League Champion</div>
-            
-            <button id="trophy-continue-btn" class="btn btn-primary">Continue</button>
+            <div class="trophy-animation" id="trophy-animation"></div>
+            <div id="champion-team-name" class="champion-name">Team Name</div>
+            <div id="champion-league-name" class="league-name">League Name Champion</div>
         </div>
+        <button id="trophy-continue" class="btn btn-primary">Continue</button>
     </div>
 
     <!-- Tutorial Screen -->
     <div id="tutorial-screen" class="screen hidden">
-        <div class="screen-header">
-            <h2>How to Play</h2>
-            <button class="btn-close" id="close-tutorial">
-                <i class="fas fa-times"></i>
-            </button>
-        </div>
-        
-        <div class="tutorial-container">
+        <h2>How to Play</h2>
+        <div class="tutorial-sections">
             <div class="tutorial-section">
-                <h3>Taking Penalties</h3>
-                <div class="tutorial-image">
-                    <img src="assets/images/tutorial-shooting.png" alt="Shooting Tutorial">
-                </div>
-                <p>1. Click and hold to charge your shot power</p>
-                <p>2. The red dot will move horizontally - this controls direction</p>
-                <p>3. Hold longer for higher shots, shorter for lower shots</p>
-                <p>4. Release to shoot - aim for the corners!</p>
+                <h3>Shooting Penalties</h3>
+                <div class="tutorial-image" id="tutorial-shooting"></div>
+                <p><strong>Keyboard Controls:</strong></p>
+                <p>A/D - Move Left/Right<br>
+                   W/S - Adjust Height<br>
+                   SPACE - Charge/Shoot</p>
+                <p>The shot direction is indicated by an arrow. Hold SPACE to charge your shot, then release to shoot. The power meter shows your shot's strength.</p>
             </div>
-            
             <div class="tutorial-section">
                 <h3>Saving Penalties</h3>
-                <div class="tutorial-image">
-                    <img src="assets/images/tutorial-saving.png" alt="Saving Tutorial">
-                </div>
-                <p>1. Move your cursor to position the goalkeeper</p>
-                <p>2. Click and hold to prepare a dive</p>
-                <p>3. Release to dive in that direction</p>
-                <p>4. Try to anticipate where the opponent will shoot!</p>
+                <div class="tutorial-image" id="tutorial-saving"></div>
+                <p><strong>Keyboard Controls:</strong></p>
+                <p>A/D - Move Left/Right<br>
+                   W/S - Jump Height<br>
+                   SPACE - Dive</p>
+                <p>Position your goalkeeper using the controls, then press SPACE to dive. A prediction indicator may show where the shot is headed, but it's not always accurate!</p>
             </div>
-            
-            <button id="tutorial-done-btn" class="btn btn-primary">Got it!</button>
         </div>
+        <button id="tutorial-done" class="btn btn-primary">Got it!</button>
     </div>
 
-    <!-- Options Screen -->
-    <div id="options-screen" class="screen hidden">
-        <div class="screen-header">
-            <h2>Game Options</h2>
-            <button class="btn-close" id="close-options">
-                <i class="fas fa-times"></i>
-            </button>
-        </div>
-        
-        <div class="options-container">
-            <div class="options-section">
-                <h3>Audio Settings</h3>
-                <div class="option-item">
-                    <label for="music-volume">Music Volume</label>
-                    <input type="range" id="music-volume" min="0" max="100" value="70">
-                    <span class="volume-value">70%</span>
-                </div>
-                <div class="option-item">
-                    <label for="sfx-volume">Sound Effects</label>
-                    <input type="range" id="sfx-volume" min="0" max="100" value="100">
-                    <span class="volume-value">100%</span>
-                </div>
-                <div class="option-toggle">
-                    <label>Music</label>
-                    <div class="toggle-switch">
-                        <input type="checkbox" id="music-toggle" checked>
-                        <span class="toggle-slider"></span>
-                    </div>
-                </div>
-                <div class="option-toggle">
-                    <label>Sound Effects</label>
-                    <div class="toggle-switch">
-                        <input type="checkbox" id="sfx-toggle" checked>
-                        <span class="toggle-slider"></span>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="options-section">
-                <h3>Game Settings</h3>
-                <div class="option-select">
-                    <label for="difficulty">Difficulty</label>
-                    <select id="difficulty">
-                        <option value="easy">Easy</option>
-                        <option value="normal" selected>Normal</option>
-                        <option value="hard">Hard</option>
-                    </select>
-                </div>
-                <div class="option-toggle">
-                    <label>Show Tutorial on Start</label>
-                    <div class="toggle-switch">
-                        <input type="checkbox" id="tutorial-toggle">
-                        <span class="toggle-slider"></span>
-                    </div>
-                </div>
-                <div class="option-toggle">
-                    <label>Vibration</label>
-                    <div class="toggle-switch">
-                        <input type="checkbox" id="vibration-toggle" checked>
-                        <span class="toggle-slider"></span>
-                    </div>
-                </div>
-            </div>
-            
-            <button id="save-options-btn" class="btn btn-primary">Save Settings</button>
-        </div>
-    </div>
-
-    <!-- Scripts -->
+    <!-- Script loading -->
     <script src="js/utils.js"></script>
-    <script src="js/audio-manager.js"></script>
-    <script src="js/teams-data.js"></script>
-    <script src="js/game-engine.js"></script>
-    <script src="js/ui-manager.js"></script>
-    <script src="js/tournament-manager.js"></script>
-    <script src="js/customization.js"></script>
-    <script src="js/main.js"></script>
+    <script src="js/teams.js"></script>
+    <script src="js/physics.js"></script>
+    <script src="js/input.js"></script>
+    <script src="js/audio.js"></script>
+    <script src="js/tournament.js"></script>
+    <script src="js/fixed-game.js"></script>
+    
+    <!-- Loading screen fallback script -->
+    <script>
+        // Ensure loading screen transitions properly even if there's an issue
+        setTimeout(function() {
+            const loadingScreen = document.getElementById('loading-screen');
+            if (loadingScreen && !loadingScreen.classList.contains('hidden')) {
+                console.log("Applying loading screen fallback");
+                loadingScreen.classList.add('hidden');
+                
+                const mainMenu = document.getElementById('main-menu');
+                if (mainMenu) {
+                    mainMenu.classList.remove('hidden');
+                    
+                    try {
+                        // Try accessing the game state object to update it
+                        if (window.PenaltyShooters && typeof window.PenaltyShooters.forceCompleteLoading === 'function') {
+                            window.PenaltyShooters.forceCompleteLoading();
+                        }
+                    } catch (e) {
+                        console.warn('Could not access game state:', e);
+                    }
+                }
+            }
+        }, 8000); // 8 second fallback timeout
+    </script>
 </body>
 </html>
